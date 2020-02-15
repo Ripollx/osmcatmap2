@@ -1,0 +1,36 @@
+{
+  "name": "osmcatmap2",
+  "version": "1.0.0",
+  "description": "OpenStreetMap Catalunya Ripollx",
+  "main": "dist/index.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Ripollx/osmcatmap2.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ripollx/osmcatmap2/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html",
+    "pre": "parcel build --public-url . src/index.html",
+    "build": "parcel build --no-source-maps --public-url . src/index.html"
+  },
+  "author": {
+    "name": "Ripollx",
+    "url": "https://github.com/Ripollx"
+  },
+  "dependencies": {
+    "ol": "^6.2.1",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "keywords": [
+    "Catalunya",
+    "openlayers",
+    "OpenStreetMap"
+  ]
+}
