@@ -21,3 +21,6 @@ Per compilar el codi, sense executar en local, (carpeta /dist):
 ```
 npm run build
 ```
+
+## Exemple
+Es pot executar el codi actual a [GitHub Pages](https://ripollx.github.io/osmcatmap2/dist/)
