@@ -4,7 +4,7 @@
 import $ from 'jquery'; //https://jquery.com
 import TileLayer from 'ol/layer/Tile';
 import {OSM, XYZ} from 'ol/source';
-import {Circle, Fill, Icon, Stroke, Style} from 'ol/style';
+import {Circle, Fill, Icon, Stroke, Style, Text} from 'ol/style';
 
 var config = {
 	initialConfig: {
@@ -662,6 +662,94 @@ var config = {
 			}
 		},
 
+		// Overlay: Test
+		{
+			group: 'Test',
+			title: 'node[name=]',
+			query: 'node[name=]({{bbox}});out meta;'
+		},
+		{
+			group: 'Test',
+			title: 'building',
+			query: '(node({{bbox}});rel(bn)->.foo;way(bn);node(w)->.foo;rel(bw););out;',
+			style: function (feature) {
+				var styles = {
+					'amenity': {
+						'parking': new Style({
+							stroke: new Stroke({
+								color: 'rgba(170, 170, 170, 1.0)',
+								width: 1
+							}),
+							fill: new Fill({
+								color: 'rgba(170, 170, 170, 0.3)'
+							})
+						})
+					},
+					'building': {
+						'.*': new Style({
+							zIndex: 100,
+							stroke: new Stroke({
+								color: 'rgba(246, 99, 79, 1.0)',
+								width: 1
+							}),
+							fill: new Fill({
+								color: 'rgba(246, 99, 79, 0.3)'
+							}),
+							text: new Text({
+								text: 'building'
+							})
+						})
+					},
+					'highway': {
+						'service': new Style({
+							stroke: new Stroke({
+								color: 'rgba(255, 255, 255, 1.0)',
+								width: 2
+							})
+						}),
+						'.*': new Style({
+							stroke: new Stroke({
+								color: 'rgba(255, 255, 255, 1.0)',
+								width: 3
+							})
+						})
+					},
+					'landuse': {
+						'forest|grass|allotments': new Style({
+							stroke: new Stroke({
+								color: 'rgba(140, 208, 95, 1.0)',
+								width: 1
+							}),
+							fill: new Fill({
+								color: 'rgba(140, 208, 95, 0.3)'
+							})
+						})
+					},
+					'natural': {
+						'tree': new Style({
+							image: new Circle({
+								radius: 2,
+								fill: new Fill({
+									color: 'rgba(140, 208, 95, 1.0)'
+								}),
+								stroke: null
+							})
+						})
+					}
+				};
+				for (var key in styles) {
+					var value = feature.get(key);
+					if (value !== undefined) {
+						for (var regexp in styles[key]) {
+							if (new RegExp(regexp).test(value)) {
+								return styles[key][regexp];
+							}
+						}
+					}
+				}
+				return null;
+			}
+		}
 	],
 
 	//Es crida sempre que es fa click sobre el mapa
