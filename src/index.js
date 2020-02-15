@@ -238,7 +238,7 @@ var geolocationControlBuild = function () {
 				var longitude = position.coords.longitude;
 
 				view.animate({
-					zoom: initialConfig.zoomGeolocation,
+					zoom: config.initialConfig.zoomGeolocation,
 					center: fromLonLat([longitude, latitude])
 				});
 			}, function (error) {
