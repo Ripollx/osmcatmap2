@@ -4,7 +4,7 @@
 import $ from 'jquery'; //https://jquery.com
 import TileLayer from 'ol/layer/Tile';
 import {OSM, XYZ} from 'ol/source';
-import {Circle, Fill, Icon, Stroke, Style, Text} from 'ol/style';
+import * as ol_style from 'ol/style';
 
 var config = {
 	initialConfig: {
@@ -140,8 +140,8 @@ var config = {
 			query: 'node[emergency=access_point]({{bbox}});out skel;',
 			iconSrc: 'img/icones/pal_cobertura.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/pal_cobertura.png'
 					})
 				});
@@ -154,8 +154,8 @@ var config = {
 			query: 'node[emergency=defibrillator]({{bbox}});out skel;',
 			iconSrc: 'img/icones/aed.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/aed.png'
 					})
 				});
@@ -169,15 +169,15 @@ var config = {
 			iconSrc: 'img/base/line.png',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 2
@@ -194,8 +194,8 @@ var config = {
 			query: 'node[highway=crossing][crossing_ref]({{bbox}});out meta;',
 			iconSrc: 'img/icones/crossing.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/crossing.png'
 					})
 				});
@@ -208,8 +208,8 @@ var config = {
 			query: 'node[highway=crossing][!crossing]({{bbox}});out meta;',
 			iconSrc: 'img/icones/crossingError.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/crossingError.png'
 					})
 				});
@@ -223,15 +223,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#00FF00',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(0,255,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#00FF00',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -249,15 +249,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#0000FF',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(0,0,255,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#0000FF',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -275,8 +275,8 @@ var config = {
 			query: 'node[highway=speed_camera]({{bbox}});out meta;',
 			iconSrc: 'img/icones/radar.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/radar.png'
 					})
 				});
@@ -289,8 +289,8 @@ var config = {
 			query: 'node[highway=crossing][crossing=traffic_signals]({{bbox}});out meta;',
 			iconSrc: 'img/icones/trafficlight.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/trafficlight.png'
 					})
 				});
@@ -300,19 +300,19 @@ var config = {
 		{
 			group: 'Mobilitat',
 			title: 'crossing=no',
-			query: 'node[highway=crossing][crossing=no]({{bbox}});out meta;',
+			query: 'node[crossing=no]({{bbox}});out meta;',//As crossing=no excludes the existence of a crossing, it must be used without highway=crossing.
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -329,8 +329,8 @@ var config = {
 			query: 'node[highway=crossing][crossing=uncontrolled]({{bbox}});out meta;',
 			iconSrc: 'img/icones/crossing_uncontrolled.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/crossing_uncontrolled.png'
 					})
 				});
@@ -343,8 +343,8 @@ var config = {
 			query: 'node["traffic_sign:backward"="ES:R1"]({{bbox}});out meta;',
 			iconSrc: 'img/icones/ES_R1.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/ES_R1.png'
 					})
 				});
@@ -357,8 +357,8 @@ var config = {
 			query: 'node["traffic_sign:backward"="ES:R2"]({{bbox}});out meta;',
 			iconSrc: 'img/icones/ES_R2.png',
 			style: function () {
-				var style = new Style({
-					image: new Icon({
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
 						src: 'img/icones/ES_R2.png'
 					})
 				});
@@ -374,14 +374,14 @@ var config = {
 			iconSrc: 'img/base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new Style({
+				var style = new ol_style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -395,14 +395,14 @@ var config = {
 			iconSrc: 'img/base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new Style({
+				var style = new ol_style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -416,14 +416,14 @@ var config = {
 			iconSrc: 'img/base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new Style({
+				var style = new ol_style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -437,14 +437,14 @@ var config = {
 			iconSrc: 'img/base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new Style({
+				var style = new ol_style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -460,15 +460,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#0000FF',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(0,0,255,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#0000FF',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -486,15 +486,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#00FF00',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(0,255,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#00FF00',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -512,15 +512,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#FFFF00',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(255,255,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#FFFF00',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -538,15 +538,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#A52A2A',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(165,42,42,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#A52A2A',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -564,15 +564,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#000000',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(0,0,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#000000',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -590,15 +590,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -616,15 +616,15 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#6A5ACD',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(106,90,205,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#6A5ACD',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -642,18 +642,164 @@ var config = {
 			iconSrc: 'img/base/circle.svg',
 			iconStyle: 'background-color:#808080',
 			style: function () {
-				var fill = new Fill({
+				var fill = new ol_style.Fill({
 					color: 'rgba(128,128,128,0.4)'
 				});
-				var stroke = new Stroke({
+				var stroke = new ol_style.Stroke({
 					color: '#808080',
 					width: 1.25
 				});
-				var style = new Style({
-					image: new Circle({
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
+					}),
+					fill: fill,
+					stroke: stroke
+				});
+				return style;
+			}
+		},
+
+		// Overlay: Accessibilitat
+		{
+			group: 'Accessibilitat',
+			title: 'Plaça aparcament',
+			query: 'node["capacity:disabled"]({{bbox}});out;',
+			iconSrc: 'img/accessibilitat/capacity_disabled.svg',
+			style: function () {
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
+						scale: 0.04,
+						src: 'img/accessibilitat/capacity_disabled.svg'
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Accessibilitat',
+			title: 'Pas de vianant amb semàfor',
+			query: 'node[crossing=traffic_signals]({{bbox}});out;',
+			iconSrc: 'img/accessibilitat/crossing_traffic_signals.svg',
+			style: function () {
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
+						scale: 0.04,
+						src: 'img/accessibilitat/crossing_traffic_signals.svg'
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Accessibilitat',
+			title: 'Comerç Adaptat=sí',
+			query: 'node[wheelchair=yes][shop]({{bbox}});out;',
+			iconSrc: 'img/accessibilitat/wheelchair_yes_shop.svg',
+			style: function () {
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
+						scale: 0.04,
+						src: 'img/accessibilitat/wheelchair_yes_shop.svg'
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Accessibilitat',
+			title: 'Comerç Adaptat=no',
+			query: 'node[wheelchair=no][shop]({{bbox}});out;',
+			iconSrc: 'img/accessibilitat/wheelchair_no_shop.svg',
+			style: function () {
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
+						scale: 0.04,
+						src: 'img/accessibilitat/wheelchair_no_shop.svg'
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Accessibilitat',
+			title: 'Comerç Adaptat parcialment',
+			query: 'node[wheelchair=limited][shop]({{bbox}});out;',
+			iconSrc: 'img/accessibilitat/wheelchair_limited_shop.svg',
+			style: function () {
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
+						scale: 0.04,
+						src: 'img/accessibilitat/wheelchair_limited_shop.svg'
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Accessibilitat',
+			title: 'Obstacle per a la mobilitat',
+			query: 'node["obstacle:wheelchair"=yes]({{bbox}});out;',
+			iconSrc: 'img/accessibilitat/obstacle_wheelchair_yes.svg',
+			style: function () {
+				var style = new ol_style.Style({
+					image: new ol_style.Icon({
+						scale: 0.04,
+						src: 'img/accessibilitat/obstacle_wheelchair_yes.svg'
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Accessibilitat',
+			title: 'Vies no adaptades',
+			query: '(way[wheelchair=no][highway=footway]({{bbox}});node(w););out;',
+			iconSrc: 'img/base/line.png',
+			iconStyle: 'background-color:#FF0000',
+			style: function () {
+				var fill = new ol_style.Fill({
+					color: 'rgba(255,0,0,0.4)'
+				});
+				var stroke = new ol_style.Stroke({
+					color: '#FF0000',
+					width: 1.25
+				});
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
+						fill: fill,
+						stroke: stroke,
+						radius: 2
+					}),
+					fill: fill,
+					stroke: stroke
+				});
+				return style;
+			}
+		},
+
+		// Overlay: Històric
+		{
+			group: 'Històric',
+			title: 'Abandonat',
+			query: '(nwr[~"^abandoned(:.*)?$"~"."]({{bbox}});node(w););out meta;',
+			iconSrc: 'img/base/circle.svg',
+			iconStyle: 'background-color:#000000',
+			style: function () {
+				var fill = new ol_style.Fill({
+					color: 'rgba(0,0,0,0.4)'
+				});
+				var stroke = new ol_style.Stroke({
+					color: '#000000',
+					width: 1.25
+				});
+				var style = new ol_style.Style({
+					image: new ol_style.Circle({
+						fill: fill,
+						stroke: stroke,
+						radius: 2
 					}),
 					fill: fill,
 					stroke: stroke
@@ -673,63 +819,71 @@ var config = {
 			title: 'building',
 			query: '(node({{bbox}});rel(bn)->.foo;way(bn);node(w)->.foo;rel(bw););out;',
 			style: function (feature) {
+				var name = feature.get('name') || '';
 				var styles = {
 					'amenity': {
-						'parking': new Style({
-							stroke: new Stroke({
+						'parking': new ol_style.Style({
+							stroke: new ol_style.Stroke({
 								color: 'rgba(170, 170, 170, 1.0)',
 								width: 1
 							}),
-							fill: new Fill({
+							fill: new ol_style.Fill({
 								color: 'rgba(170, 170, 170, 0.3)'
 							})
 						})
 					},
 					'building': {
-						'.*': new Style({
+						'.*': new ol_style.Style({
 							zIndex: 100,
-							stroke: new Stroke({
+							stroke: new ol_style.Stroke({
 								color: 'rgba(246, 99, 79, 1.0)',
 								width: 1
 							}),
-							fill: new Fill({
+							fill: new ol_style.Fill({
 								color: 'rgba(246, 99, 79, 0.3)'
 							}),
-							text: new Text({
-								text: 'building'
+							text: new ol_style.Text({
+								text: name
 							})
 						})
 					},
 					'highway': {
-						'service': new Style({
-							stroke: new Stroke({
+						'service': new ol_style.Style({
+							stroke: new ol_style.Stroke({
 								color: 'rgba(255, 255, 255, 1.0)',
 								width: 2
+							}),
+							text: new ol_style.Text({
+								text: name,
+								placement: 'line'
 							})
 						}),
-						'.*': new Style({
-							stroke: new Stroke({
+						'.*': new ol_style.Style({
+							stroke: new ol_style.Stroke({
 								color: 'rgba(255, 255, 255, 1.0)',
 								width: 3
+							}),
+							text: new ol_style.Text({
+								text: name
 							})
 						})
 					},
 					'landuse': {
-						'forest|grass|allotments': new Style({
-							stroke: new Stroke({
+						'forest|grass|allotments': new ol_style.Style({
+							stroke: new ol_style.Stroke({
 								color: 'rgba(140, 208, 95, 1.0)',
 								width: 1
 							}),
-							fill: new Fill({
+							fill: new ol_style.Fill({
 								color: 'rgba(140, 208, 95, 0.3)'
 							})
 						})
 					},
 					'natural': {
-						'tree': new Style({
-							image: new Circle({
+						'tree': new ol_style.Style({
+							image: new ol_style.Circle({
 								radius: 2,
-								fill: new Fill({
+								fill: new ol_style.Fill({
 									color: 'rgba(140, 208, 95, 1.0)'
 								}),
 								stroke: null
@@ -778,7 +932,7 @@ var config = {
 		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Keep right!', href: 'https://www.keepright.at/report_map.php?lang=es&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + Math.min(view.getZoom(), 19) + '&ch50=1&ch191=1&ch195=1&ch201=1&ch205=1&ch206=1&ch311=1&ch312=1&ch313=1&ch402=1&number_of_tristate_checkboxes=8&highlight_error_id=0&highlight_schema=0show_ign=1&show_tmpign=1&layers=B0T&ch=0%2C50%2C70%2C170%2C191%2C195%2C201%2C205%2C206%2C220%2C231%2C232%2C311%2C312%2C313%2C402', target: '_blank'}).html($('<img>').attr({src: 'img/keepright_logo.png', height: 20, width: 20})));
 		//Geofabrik Tools
 		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Geofabrik Tools', href: 'https://tools.geofabrik.de/osmi/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + Math.min(view.getZoom(), 18) + '&view=tagging', target: '_blank'}).html($('<img>').attr({src: 'img/geofabrik.png', height: 20, width: 20})));
-		
+
 		return $.merge($.merge(edit, open), tool);
 	},
 

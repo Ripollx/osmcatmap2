@@ -89,7 +89,7 @@ a:hover {
 }
 .osmcat-content > div:hover {
 	cursor: pointer;
-	background-color: rgba(0,60,136,.3);
+	background-color: rgba(36,0,136,.3);
 }
 .osmcat-content > div.active {
 	background-color: rgba(0,60,136,.3);

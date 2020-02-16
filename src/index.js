@@ -21,8 +21,9 @@ $.each(config.overlays, function (index, overlay) {
 	layerQuery = overlay['query'],
 	layerImage = overlay['iconSrc'],
 	layerIconStyle = overlay['iconStyle'],
-	styleFunction = overlay['style'];
-	
+	styleFunction = overlay['style'],
+	vector;
+
 	var vectorSource = new VectorSource({
 		format: new OSMXML2(),
 		loader: function (extent, resolution, projection) {
@@ -31,12 +32,13 @@ $.each(config.overlays, function (index, overlay) {
 			var query = '[maxsize:1048576];' + layerQuery; // Memory limit 1 MiB
 			//var query = layerQuery;
 			query = query.replace(/{{bbox}}/g, epsg4326Extent[1] + ',' + epsg4326Extent[0] + ',' + epsg4326Extent[3] + ',' + epsg4326Extent[2]);
-			
+
 			var client = new XMLHttpRequest();
 			client.open('POST', config.overpassApi());
 			client.onerror = function () {
 				console.error('[' + client.status + '] Error loading data.');
 				me.removeLoadedExtent(extent);
+				vector.setVisible(false);
 			};
 			client.onload = function () {
 				if (client.status === 200) {
@@ -79,8 +81,8 @@ $.each(config.overlays, function (index, overlay) {
 		},
 		strategy: bboxStrategy
 	});
-	
-	var vector = new VectorLayer({
+
+	vector = new VectorLayer({
 		title: layerName,
 		iconSrc: layerImage,
 		iconStyle: layerIconStyle,
@@ -89,7 +91,7 @@ $.each(config.overlays, function (index, overlay) {
 		//minZoom: 15,
 		visible: false
 	});
-	
+
 	if (overlaysTemp[layerGroup] !== undefined) {
 		overlaysTemp[layerGroup].push(vector);
 	} else {
@@ -125,29 +127,29 @@ var layersControlBuild = function () {
 	layerDiv = $('<div>').addClass('osmcat-layer'),
 	overlaySelect = $('<select>').addClass('osmcat-select').on('change', function () {
 		var overlaySelected = $(this).find('option:selected');
-		
+
 		container.find('.osmcat-overlay').hide();
 		container.find('.' + overlaySelected.val()).show();
-		
+
 	}),
 	overlayDiv = $('<div>').hide().addClass('osmcat-layer').append($('<div>').append(overlaySelect)),
 	label = $('<div>').html('<b>&equiv; ' + config.i18n.layersLabel + '</b>').on('click', function () {
 		content.toggle();
 	}),
 	content = $('<div>').addClass('osmcat-content');
-	
+
 	config.layers.forEach(layer => {
 		if (layer.get('type') === 'overlay') {
 			overlayIndex++;
 			var title = layer.get('title'),
 				layerButton = $('<h3>').html(title),
 				overlayDivContent = $('<div>').addClass('osmcat-content osmcat-overlay overlay' + overlayIndex);
-				
+
 				overlaySelect.append($('<option>').val('overlay' + overlayIndex).text(title));
-				
+
 				layer.getLayers().forEach(overlay => {
 					var overlaySrc = overlay.get('iconSrc'),
-						overlayIconStyle = overlay.get('iconStyle'),
+						overlayIconStyle = overlay.get('iconStyle') || '',
 						title = (overlaySrc ? '<img src="' + overlaySrc + '" height="16" style="' + overlayIconStyle + '"/> ' : '') + overlay.get('title'),
 						overlayButton = $('<div>').html(title).on('click', function () {
 							var visible = overlay.getVisible();
@@ -165,7 +167,7 @@ var layersControlBuild = function () {
 						}
 					});
 				});
-				
+
 				overlayDiv.append(overlayDivContent);
 				overlayDiv.show();
 		} else {
@@ -173,7 +175,7 @@ var layersControlBuild = function () {
 				title = (layerSrc ? '<img src="' + layerSrc + '" height="16"/> ' : '') + layer.get('title'),
 				layerButton = $('<div>').html(title).on('click', function () {
 					var visible = layer.getVisible();
-					
+
 					if (visible) { //Show the previous layer
 						if (previousLayer) {
 							layer.setVisible(!visible);
@@ -188,7 +190,7 @@ var layersControlBuild = function () {
 						visibleLayer = layer;
 					}
 				});
-				
+
 				content.append(layerButton);
 				if (layer.getVisible()) {
 					if (visibleLayer === undefined) {
@@ -210,7 +212,7 @@ var layersControlBuild = function () {
 	layerDiv.append(label, content);
 	container.append(layerDiv, overlayDiv);
 	overlaySelect.trigger('change');
-	
+
 	return container;
 };
 
