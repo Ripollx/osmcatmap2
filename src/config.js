@@ -1,10 +1,8 @@
 /**
  * OSM Cat config
  */
-import $ from 'jquery'; //https://jquery.com
-import TileLayer from 'ol/layer/Tile';
-import {OSM, XYZ} from 'ol/source';
-import * as ol_style from 'ol/style';
+
+var imgSrc = 'src/img/';
 
 var config = {
 	initialConfig: {
@@ -35,88 +33,88 @@ var config = {
 	},
 	// Base layers
 	layers: [
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'OpenStreetMap',
-			iconSrc: 'img/osm_logo-layer.svg',
-			source: new OSM()
+			iconSrc: imgSrc + 'osm_logo-layer.svg',
+			source: new ol.source.OSM()
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'OpenStreetMap B&W',
-			iconSrc: 'img/osmbw_logo-layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'osmbw_logo-layer.png',
+			source: new ol.source.XYZ({
 				attributions: '&copy; <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>',
 				//url: 'https://toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
 				url: 'https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
 			}),
 			visible: false
 		}),
-		new TileLayer({// OpenStreetMap France https://openstreetmap.fr
+		new ol.layer.Tile({// OpenStreetMap France https://openstreetmap.fr
 			title: 'OpenStreetMap France',
-			iconSrc: 'img/osmfr_logo-layer.png',
-			source: new OSM({
+			iconSrc: imgSrc + 'osmfr_logo-layer.png',
+			source: new ol.source.OSM({
 				attributions: '&copy; <a href="https://www.openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
 				url: 'https://{a-c}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png'
 			}),
 			visible: false
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'OpenMapSurfer',
-			iconSrc: 'img/openroute_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'openroute_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: 'Map data &copy; <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, powered by <a href="https://mapsurfernet.com/" target="_blank">MapSurfer.NET</a>',
 				url: 'https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png'
 			}),
 			visible: false
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'OpenCycleMap',
-			iconSrc: 'img/opencycle_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'opencycle_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: 'Map data &copy; <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, powered by &copy; <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a>',
 				url: 'https://{a-c}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=a5dd6a2f1c934394bce6b0fb077203eb'
 			}),
 			visible: false
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'ArcGIS World Topo',
-			iconSrc: 'img/worldtopomap_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'worldtopomap_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: 'Map data &copy; <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, &copy; <a href="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" target="_blank">ArcGIS</a>',
 				url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
 			}),
 			visible: false
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'Positron (CartoDB)',
-			iconSrc: 'img/cartodb_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'cartodb_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: 'Map data &copy; <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions" target="_blank">CartoDB</a>',
 				url: 'https://s.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
 			}),
 			visible: false
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'Dark Matter (CartoDB)',
-			iconSrc: 'img/cartodb_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'cartodb_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: 'Map data &copy; <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions" target="_blank">CartoDB</a>',
 				url: 'https://s.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
 			}),
 			visible: false
 		}),
-		new TileLayer({
+		new ol.layer.Tile({
 			title: 'Google Maps',
-			iconSrc: 'img/gmaps_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'gmaps_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: '&copy; <a href="https://www.google.com/maps/" target="_blank">Google Maps</a>',
 				url: 'https://mt{0-3}.google.com/vt/lyrs=m&z={z}&x={x}&y={y}'
 			}),
 			visible: false
 		}),
-		new TileLayer({// Google Sat
+		new ol.layer.Tile({// Google Sat
 			title: 'Google Sat',
-			iconSrc: 'img/gmaps_logo_layer.png',
-			source: new XYZ({
+			iconSrc: imgSrc + 'gmaps_logo_layer.png',
+			source: new ol.source.XYZ({
 				attributions: '&copy; <a href="https://www.google.com/maps/" target="_blank">Google Maps</a>',
 				url: 'https://mt{0-3}.google.com/vt/lyrs=s&z={z}&x={x}&y={y}'
 			}),
@@ -138,11 +136,11 @@ var config = {
 			group: 'Iniciatives',
 			title: 'Cobertura 112',
 			query: 'node[emergency=access_point]({{bbox}});out skel;',
-			iconSrc: 'img/icones/pal_cobertura.png',
+			iconSrc: imgSrc + 'icones/pal_cobertura.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/pal_cobertura.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/pal_cobertura.png'
 					})
 				});
 				return style;
@@ -152,11 +150,11 @@ var config = {
 			group: 'Iniciatives',
 			title: 'Desfibril·lador',
 			query: 'node[emergency=defibrillator]({{bbox}});out skel;',
-			iconSrc: 'img/icones/aed.png',
+			iconSrc: imgSrc + 'icones/aed.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/aed.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/aed.png'
 					})
 				});
 				return style;
@@ -166,18 +164,18 @@ var config = {
 			group: 'Iniciatives',
 			title: 'Vies sense nom (#1carrer1nom)',
 			query: '(way[highway=residential][!name][!noname][!junction]({{bbox}});node(w);way[highway=pedestrian][!name][!noname][!junction]({{bbox}});node(w);way[highway=living_street][!name][!noname][!junction]({{bbox}});node(w);way[highway=unclassified][!name][!noname][!junction]({{bbox}});node(w););out;',
-			iconSrc: 'img/base/line.png',
+			iconSrc: imgSrc + 'base/line.png',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 2
@@ -192,11 +190,11 @@ var config = {
 			group: 'Iniciatives',
 			title: 'Passos de vianants (#1crossing1tag)',
 			query: 'node[highway=crossing][crossing_ref]({{bbox}});out meta;',
-			iconSrc: 'img/icones/crossing.png',
+			iconSrc: imgSrc + 'icones/crossing.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/crossing.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/crossing.png'
 					})
 				});
 				return style;
@@ -206,11 +204,11 @@ var config = {
 			group: 'Iniciatives',
 			title: 'No crossing (#1crossing1tag)',
 			query: 'node[highway=crossing][!crossing]({{bbox}});out meta;',
-			iconSrc: 'img/icones/crossingError.png',
+			iconSrc: imgSrc + 'icones/crossingError.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/crossingError.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/crossingError.png'
 					})
 				});
 				return style;
@@ -220,18 +218,18 @@ var config = {
 			group: 'Iniciatives',
 			title: 'Estacions monitoratge',
 			query: '(node[man_made=monitoring_station]({{bbox}});node(w);way[man_made=monitoring_station]({{bbox}});node(w);relation[man_made=monitoring_station]({{bbox}});node(w););out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#00FF00',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(0,255,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#00FF00',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -246,18 +244,18 @@ var config = {
 			group: 'Iniciatives',
 			title: 'Fonts d\'aigua potable',
 			query: 'node[amenity=drinking_water]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#0000FF',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(0,0,255,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#0000FF',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -273,11 +271,11 @@ var config = {
 			group: 'Mobilitat',
 			title: 'Radars',
 			query: 'node[highway=speed_camera]({{bbox}});out meta;',
-			iconSrc: 'img/icones/radar.png',
+			iconSrc: imgSrc + 'icones/radar.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/radar.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/radar.png'
 					})
 				});
 				return style;
@@ -287,11 +285,11 @@ var config = {
 			group: 'Mobilitat',
 			title: 'crossing=traffic_signals',
 			query: 'node[highway=crossing][crossing=traffic_signals]({{bbox}});out meta;',
-			iconSrc: 'img/icones/trafficlight.png',
+			iconSrc: imgSrc + 'icones/trafficlight.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/trafficlight.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/trafficlight.png'
 					})
 				});
 				return style;
@@ -301,18 +299,18 @@ var config = {
 			group: 'Mobilitat',
 			title: 'crossing=no',
 			query: 'node[crossing=no]({{bbox}});out meta;',//As crossing=no excludes the existence of a crossing, it must be used without highway=crossing.
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -327,11 +325,11 @@ var config = {
 			group: 'Mobilitat',
 			title: 'crossing=uncontrolled',
 			query: 'node[highway=crossing][crossing=uncontrolled]({{bbox}});out meta;',
-			iconSrc: 'img/icones/crossing_uncontrolled.png',
+			iconSrc: imgSrc + 'icones/crossing_uncontrolled.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/crossing_uncontrolled.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/crossing_uncontrolled.png'
 					})
 				});
 				return style;
@@ -341,11 +339,11 @@ var config = {
 			group: 'Mobilitat',
 			title: 'ES:R1 backward',
 			query: 'node["traffic_sign:backward"="ES:R1"]({{bbox}});out meta;',
-			iconSrc: 'img/icones/ES_R1.png',
+			iconSrc: imgSrc + 'icones/ES_R1.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/ES_R1.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/ES_R1.png'
 					})
 				});
 				return style;
@@ -355,11 +353,11 @@ var config = {
 			group: 'Mobilitat',
 			title: 'ES:R2 backward',
 			query: 'node["traffic_sign:backward"="ES:R2"]({{bbox}});out meta;',
-			iconSrc: 'img/icones/ES_R2.png',
+			iconSrc: imgSrc + 'icones/ES_R2.png',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
-						src: 'img/icones/ES_R2.png'
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: imgSrc + 'icones/ES_R2.png'
 					})
 				});
 				return style;
@@ -371,17 +369,17 @@ var config = {
 			group: 'Mobilitat',
 			title: 'Exprés.cat (Barcelona)',
 			query: '(relation["network"="exprés.cat (Barcelona)"]({{bbox}});way(r)({{bbox}});node(w););out skel;',
-			iconSrc: 'img/base/line.png',
+			iconSrc: imgSrc + 'base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new ol_style.Style({
+				var style = new ol.style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -392,17 +390,17 @@ var config = {
 			group: 'Mobilitat',
 			title: 'Exprés.cat (Girona)',
 			query: '(relation["network"="exprés.cat (Girona)"]({{bbox}});way(r)({{bbox}});node(w););out skel;',
-			iconSrc: 'img/base/line.png',
+			iconSrc: imgSrc + 'base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new ol_style.Style({
+				var style = new ol.style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -413,17 +411,17 @@ var config = {
 			group: 'Mobilitat',
 			title: 'Exprés.cat (Tarragona)',
 			query: '(relation["network"="exprés.cat (Tarragona)"]({{bbox}});way(r)({{bbox}});node(w););out skel;',
-			iconSrc: 'img/base/line.png',
+			iconSrc: imgSrc + 'base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new ol_style.Style({
+				var style = new ol.style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -434,17 +432,17 @@ var config = {
 			group: 'Mobilitat',
 			title: 'Exprés.cat (Lleida)',
 			query: '(relation["network"="exprés.cat (Lleida)"]({{bbox}});way(r)({{bbox}});node(w););out skel;',
-			iconSrc: 'img/base/line.png',
+			iconSrc: imgSrc + 'base/line.png',
 			iconStyle: 'background-color:#40E0D0',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(64,224,208,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#40E0D0',
 					width: 5
 				});
-				var style = new ol_style.Style({
+				var style = new ol.style.Style({
 					fill: fill,
 					stroke: stroke
 				});
@@ -457,18 +455,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Paper',
 			query: 'node["recycling:paper"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#0000FF',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(0,0,255,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#0000FF',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -483,18 +481,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Vidre',
 			query: 'node["recycling:glass_bottles"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#00FF00',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(0,255,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#00FF00',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -509,18 +507,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Envasos',
 			query: 'node["recycling:cans"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#FFFF00',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(255,255,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#FFFF00',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -535,18 +533,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Orgànic',
 			query: 'node["recycling:organic"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#A52A2A',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(165,42,42,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#A52A2A',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -561,18 +559,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Rebuig',
 			query: 'node["recycling:waste"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#000000',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(0,0,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#000000',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -587,18 +585,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Piles',
 			query: 'node["recycling:batteries"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -613,18 +611,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Oli',
 			query: 'node["recycling:cooking_oil"="yes"][!access]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#6A5ACD',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(106,90,205,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#6A5ACD',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -639,18 +637,18 @@ var config = {
 			group: 'Reciclatge',
 			title: 'Privats',
 			query: 'node[recycling_type=container][access=private]({{bbox}});out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#808080',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(128,128,128,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#808080',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 5
@@ -667,12 +665,12 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Plaça aparcament',
 			query: 'node["capacity:disabled"]({{bbox}});out;',
-			iconSrc: 'img/accessibilitat/capacity_disabled.svg',
+			iconSrc: imgSrc + 'accessibilitat/capacity_disabled.svg',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
 						scale: 0.04,
-						src: 'img/accessibilitat/capacity_disabled.svg'
+						src: imgSrc + 'accessibilitat/capacity_disabled.svg'
 					})
 				});
 				return style;
@@ -682,12 +680,12 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Pas de vianant amb semàfor',
 			query: 'node[crossing=traffic_signals]({{bbox}});out;',
-			iconSrc: 'img/accessibilitat/crossing_traffic_signals.svg',
+			iconSrc: imgSrc + 'accessibilitat/crossing_traffic_signals.svg',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
 						scale: 0.04,
-						src: 'img/accessibilitat/crossing_traffic_signals.svg'
+						src: imgSrc + 'accessibilitat/crossing_traffic_signals.svg'
 					})
 				});
 				return style;
@@ -697,12 +695,12 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Comerç Adaptat=sí',
 			query: 'node[wheelchair=yes][shop]({{bbox}});out;',
-			iconSrc: 'img/accessibilitat/wheelchair_yes_shop.svg',
+			iconSrc: imgSrc + 'accessibilitat/wheelchair_yes_shop.svg',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
 						scale: 0.04,
-						src: 'img/accessibilitat/wheelchair_yes_shop.svg'
+						src: imgSrc + 'accessibilitat/wheelchair_yes_shop.svg'
 					})
 				});
 				return style;
@@ -712,12 +710,12 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Comerç Adaptat=no',
 			query: 'node[wheelchair=no][shop]({{bbox}});out;',
-			iconSrc: 'img/accessibilitat/wheelchair_no_shop.svg',
+			iconSrc: imgSrc + 'accessibilitat/wheelchair_no_shop.svg',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
 						scale: 0.04,
-						src: 'img/accessibilitat/wheelchair_no_shop.svg'
+						src: imgSrc + 'accessibilitat/wheelchair_no_shop.svg'
 					})
 				});
 				return style;
@@ -727,12 +725,12 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Comerç Adaptat parcialment',
 			query: 'node[wheelchair=limited][shop]({{bbox}});out;',
-			iconSrc: 'img/accessibilitat/wheelchair_limited_shop.svg',
+			iconSrc: imgSrc + 'accessibilitat/wheelchair_limited_shop.svg',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
 						scale: 0.04,
-						src: 'img/accessibilitat/wheelchair_limited_shop.svg'
+						src: imgSrc + 'accessibilitat/wheelchair_limited_shop.svg'
 					})
 				});
 				return style;
@@ -742,12 +740,12 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Obstacle per a la mobilitat',
 			query: 'node["obstacle:wheelchair"=yes]({{bbox}});out;',
-			iconSrc: 'img/accessibilitat/obstacle_wheelchair_yes.svg',
+			iconSrc: imgSrc + 'accessibilitat/obstacle_wheelchair_yes.svg',
 			style: function () {
-				var style = new ol_style.Style({
-					image: new ol_style.Icon({
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
 						scale: 0.04,
-						src: 'img/accessibilitat/obstacle_wheelchair_yes.svg'
+						src: imgSrc + 'accessibilitat/obstacle_wheelchair_yes.svg'
 					})
 				});
 				return style;
@@ -757,18 +755,18 @@ var config = {
 			group: 'Accessibilitat',
 			title: 'Vies no adaptades',
 			query: '(way[wheelchair=no][highway=footway]({{bbox}});node(w););out;',
-			iconSrc: 'img/base/line.png',
+			iconSrc: imgSrc + 'base/line.png',
 			iconStyle: 'background-color:#FF0000',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(255,0,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#FF0000',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 2
@@ -785,18 +783,18 @@ var config = {
 			group: 'Històric',
 			title: 'Abandonat',
 			query: '(nwr[~"^abandoned(:.*)?$"~"."]({{bbox}});node(w););out meta;',
-			iconSrc: 'img/base/circle.svg',
+			iconSrc: imgSrc + 'base/circle.svg',
 			iconStyle: 'background-color:#000000',
 			style: function () {
-				var fill = new ol_style.Fill({
+				var fill = new ol.style.Fill({
 					color: 'rgba(0,0,0,0.4)'
 				});
-				var stroke = new ol_style.Stroke({
+				var stroke = new ol.style.Stroke({
 					color: '#000000',
 					width: 1.25
 				});
-				var style = new ol_style.Style({
-					image: new ol_style.Circle({
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
 						fill: fill,
 						stroke: stroke,
 						radius: 2
@@ -822,68 +820,68 @@ var config = {
 				var name = feature.get('name') || '';
 				var styles = {
 					'amenity': {
-						'parking': new ol_style.Style({
-							stroke: new ol_style.Stroke({
+						'parking': new ol.style.Style({
+							stroke: new ol.style.Stroke({
 								color: 'rgba(170, 170, 170, 1.0)',
 								width: 1
 							}),
-							fill: new ol_style.Fill({
+							fill: new ol.style.Fill({
 								color: 'rgba(170, 170, 170, 0.3)'
 							})
 						})
 					},
 					'building': {
-						'.*': new ol_style.Style({
+						'.*': new ol.style.Style({
 							zIndex: 100,
-							stroke: new ol_style.Stroke({
+							stroke: new ol.style.Stroke({
 								color: 'rgba(246, 99, 79, 1.0)',
 								width: 1
 							}),
-							fill: new ol_style.Fill({
+							fill: new ol.style.Fill({
 								color: 'rgba(246, 99, 79, 0.3)'
 							}),
-							text: new ol_style.Text({
+							text: new ol.style.Text({
 								text: name
 							})
 						})
 					},
 					'highway': {
-						'service': new ol_style.Style({
-							stroke: new ol_style.Stroke({
+						'service': new ol.style.Style({
+							stroke: new ol.style.Stroke({
 								color: 'rgba(255, 255, 255, 1.0)',
 								width: 2
 							}),
-							text: new ol_style.Text({
+							text: new ol.style.Text({
 								text: name,
 								placement: 'line'
 							})
 						}),
-						'.*': new ol_style.Style({
-							stroke: new ol_style.Stroke({
+						'.*': new ol.style.Style({
+							stroke: new ol.style.Stroke({
 								color: 'rgba(255, 255, 255, 1.0)',
 								width: 3
 							}),
-							text: new ol_style.Text({
+							text: new ol.style.Text({
 								text: name
 							})
 						})
 					},
 					'landuse': {
-						'forest|grass|allotments': new ol_style.Style({
-							stroke: new ol_style.Stroke({
+						'forest|grass|allotments': new ol.style.Style({
+							stroke: new ol.style.Stroke({
 								color: 'rgba(140, 208, 95, 1.0)',
 								width: 1
 							}),
-							fill: new ol_style.Fill({
+							fill: new ol.style.Fill({
 								color: 'rgba(140, 208, 95, 0.3)'
 							})
 						})
 					},
 					'natural': {
-						'tree': new ol_style.Style({
-							image: new ol_style.Circle({
+						'tree': new ol.style.Style({
+							image: new ol.style.Circle({
 								radius: 2,
-								fill: new ol_style.Fill({
+								fill: new ol.style.Fill({
 									color: 'rgba(140, 208, 95, 1.0)'
 								}),
 								stroke: null
@@ -911,27 +909,27 @@ var config = {
 
 		var edit = $('<div>').html(config.i18n.editWith);
 		//ID editor
-		edit.append($('<a>').css('marginLeft', 5).attr({title: 'iD', href: 'https://www.openstreetmap.org/edit?editor=id&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: 'img/ID.svg', height: 20, width: 20})));
+		edit.append($('<a>').css('marginLeft', 5).attr({title: 'iD', href: 'https://www.openstreetmap.org/edit?editor=id&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: imgSrc + 'ID.svg', height: 20, width: 20})));
 		//Potlatch 2 editor
-		edit.append($('<a>').css('marginLeft', 5).attr({title: 'Potlatch 2', href: 'https://www.openstreetmap.org/edit?editor=potlatch2&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: 'img/potlatch2logobig.png', height: 20, width: 20})));
-		//JOSM editor
-		edit.append($('<a>').css('marginLeft', 5).attr({title: 'JOSM', href: 'https://www.openstreetmap.org/edit?editor=remote&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: 'img/JOSM Logotype 2019.svg', height: 20, width: 20})));
+		edit.append($('<a>').css('marginLeft', 5).attr({title: 'Potlatch 2', href: 'https://www.openstreetmap.org/edit?editor=potlatch2&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: imgSrc + 'potlatch2logobig.png', height: 20, width: 20})));
+		//Jol.source.OSM editor
+		edit.append($('<a>').css('marginLeft', 5).attr({title: 'JOSM', href: 'https://www.openstreetmap.org/edit?editor=remote&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: imgSrc + 'JOSM Logotype 2019.svg', height: 20, width: 20})));
 
 		var open = $('<div>').html(config.i18n.openWith);
-		//OSM
-		open.append($('<a>').css('marginLeft', 5).attr({title: 'OSM', href: 'https://www.openstreetmap.org/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: 'img/osm_logo-layer.svg', height: 20, width: 20})));
+		//ol.source.OSM
+		open.append($('<a>').css('marginLeft', 5).attr({title: 'ol.source.OSM', href: 'https://www.openstreetmap.org/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom(), target: '_blank'}).html($('<img>').attr({src: imgSrc + 'osm_logo-layer.svg', height: 20, width: 20})));
 		//Here WeGo
-		open.append($('<a>').css('marginLeft', 5).attr({title: 'HERE WeBo', href: 'https://wego.here.com/?map=' + coordinateLL[1] + ',' + coordinateLL[0] + ',' + Math.min(view.getZoom(), 18) + ',normal', target: '_blank'}).html($('<img>').attr({src: 'img/here_logo.png', height: 20, width: 20})));
+		open.append($('<a>').css('marginLeft', 5).attr({title: 'HERE WeBo', href: 'https://wego.here.com/?map=' + coordinateLL[1] + ',' + coordinateLL[0] + ',' + Math.min(view.getZoom(), 18) + ',normal', target: '_blank'}).html($('<img>').attr({src: imgSrc + 'here_logo.png', height: 20, width: 20})));
 		//Google
-		open.append($('<a>').css('marginLeft', 5).attr({title: 'Google Maps', href: 'https://maps.google.es/maps?ll=' + coordinateLL[1] + ',' + coordinateLL[0] + '&z=' + Math.min(view.getZoom(), 21), target: '_blank'}).html($('<img>').attr({src: 'img/gmaps_logo_layer.png', height: 20, width: 20})));
+		open.append($('<a>').css('marginLeft', 5).attr({title: 'Google Maps', href: 'https://maps.google.es/maps?ll=' + coordinateLL[1] + ',' + coordinateLL[0] + '&z=' + Math.min(view.getZoom(), 21), target: '_blank'}).html($('<img>').attr({src: imgSrc + 'gmaps_logo_layer.png', height: 20, width: 20})));
 
 		var tool = $('<div>').html(config.i18n.checkTools);
-		//Notes a OSM
-		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Notes a OSM', href: 'https://www.openstreetmap.org/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom() + '&layers=N', target: '_blank'}).html($('<img>').attr({src: 'img/osm_logo-layer.svg', height: 20, width: 20})));
+		//Notes a ol.source.OSM
+		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Notes a ol.source.OSM', href: 'https://www.openstreetmap.org/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + view.getZoom() + '&layers=N', target: '_blank'}).html($('<img>').attr({src: imgSrc + 'osm_logo-layer.svg', height: 20, width: 20})));
 		//Keep right!
-		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Keep right!', href: 'https://www.keepright.at/report_map.php?lang=es&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + Math.min(view.getZoom(), 19) + '&ch50=1&ch191=1&ch195=1&ch201=1&ch205=1&ch206=1&ch311=1&ch312=1&ch313=1&ch402=1&number_of_tristate_checkboxes=8&highlight_error_id=0&highlight_schema=0show_ign=1&show_tmpign=1&layers=B0T&ch=0%2C50%2C70%2C170%2C191%2C195%2C201%2C205%2C206%2C220%2C231%2C232%2C311%2C312%2C313%2C402', target: '_blank'}).html($('<img>').attr({src: 'img/keepright_logo.png', height: 20, width: 20})));
+		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Keep right!', href: 'https://www.keepright.at/report_map.php?lang=es&lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + Math.min(view.getZoom(), 19) + '&ch50=1&ch191=1&ch195=1&ch201=1&ch205=1&ch206=1&ch311=1&ch312=1&ch313=1&ch402=1&number_of_tristate_checkboxes=8&highlight_error_id=0&highlight_schema=0show_ign=1&show_tmpign=1&layers=B0T&ch=0%2C50%2C70%2C170%2C191%2C195%2C201%2C205%2C206%2C220%2C231%2C232%2C311%2C312%2C313%2C402', target: '_blank'}).html($('<img>').attr({src: imgSrc + 'keepright_logo.png', height: 20, width: 20})));
 		//Geofabrik Tools
-		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Geofabrik Tools', href: 'https://tools.geofabrik.de/osmi/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + Math.min(view.getZoom(), 18) + '&view=tagging', target: '_blank'}).html($('<img>').attr({src: 'img/geofabrik.png', height: 20, width: 20})));
+		tool.append($('<a>').css('marginLeft', 5).attr({title: 'Geofabrik Tools', href: 'https://tools.geofabrik.de/osmi/?lon=' + coordinateLL[0] + '&lat=' + coordinateLL[1] + '&zoom=' + Math.min(view.getZoom(), 18) + '&view=tagging', target: '_blank'}).html($('<img>').attr({src: imgSrc + 'geofabrik.png', height: 20, width: 20})));
 
 		return $.merge($.merge(edit, open), tool);
 	},
@@ -991,5 +989,3 @@ var config = {
 		return {};
 	}
 };
-
-export default config;

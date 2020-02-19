@@ -1,1 +1,1 @@
-https://github.com/openlayers/openlayers/releases/latest
+https://github.com/Ripollx/openlayers-builder

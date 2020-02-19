@@ -1,17 +1,7 @@
-import 'ol/ol.css';
-
-import $ from 'jquery'; //https://jquery.com
-import './api/jquery-ui-1.12.1.custom/jquery-ui.js';
-import config from './config.js';
-import OSMXML2 from './OSMXML2.js';
-import {Map, Overlay, View} from 'ol';
-import {Control, MousePosition, ScaleLine, ZoomSlider} from 'ol/control';
-import {format} from 'ol/coordinate';
+/**
 import {Group, Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-import {bbox as bboxStrategy} from 'ol/loadingstrategy';
-import {fromLonLat, toLonLat, transformExtent} from 'ol/proj';
-import VectorSource from 'ol/source/Vector';
-
+*/
+$(function() {
 $('#map').empty(); // Remove Javascript required message
 
 var overlaysTemp = {};
@@ -24,11 +14,11 @@ $.each(config.overlays, function (index, overlay) {
 	styleFunction = overlay['style'],
 	vector;
 
-	var vectorSource = new VectorSource({
-		format: new OSMXML2(),
+	var vectorSource = new ol.source.Vector({
+		format: new ol.format.OSMXML2(),
 		loader: function (extent, resolution, projection) {
 			var me = this;
-			var epsg4326Extent = transformExtent(extent, projection, 'EPSG:4326');
+			var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
 			var query = '[maxsize:1048576];' + layerQuery; // Memory limit 1 MiB
 			//var query = layerQuery;
 			query = query.replace(/{{bbox}}/g, epsg4326Extent[1] + ',' + epsg4326Extent[0] + ',' + epsg4326Extent[3] + ',' + epsg4326Extent[2]);
@@ -68,7 +58,7 @@ $.each(config.overlays, function (index, overlay) {
 								}
 							});
 						}
-						var features = new OSMXML2().readFeatures(xmlDoc, {
+						var features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
 							featureProjection: map.getView().getProjection()
 						});
 						me.addFeatures(features);
@@ -79,10 +69,10 @@ $.each(config.overlays, function (index, overlay) {
 			};
 			client.send(query);
 		},
-		strategy: bboxStrategy
+		strategy: ol.loadingstrategy.bbox
 	});
 
-	vector = new VectorLayer({
+	vector = new ol.layer.Vector({
 		title: layerName,
 		iconSrc: layerImage,
 		iconStyle: layerIconStyle,
@@ -100,7 +90,7 @@ $.each(config.overlays, function (index, overlay) {
 });
 
 $.each(overlaysTemp, function (index, value) {
-	var layerGroup = new Group({
+	var layerGroup = new ol.layer.Group({
 		title: index,
 		type: 'overlay',
 		layers: value
@@ -108,12 +98,12 @@ $.each(overlaysTemp, function (index, value) {
 	config.layers.push(layerGroup);
 });
 
-var view = new View({
-	center: fromLonLat([config.initialConfig.lon, config.initialConfig.lat]), // Transform coordinate from EPSG:3857 to EPSG:4326
+var view = new ol.View({
+	center: ol.proj.fromLonLat([config.initialConfig.lon, config.initialConfig.lat]), // Transform coordinate from EPSG:3857 to EPSG:4326
 	zoom: config.initialConfig.zoom
 });
 
-const map = new Map({
+const map = new ol.Map({
 	layers: config.layers,
 	target: 'map',
 	view: view
@@ -218,14 +208,14 @@ var layersControlBuild = function () {
 
 $('#menu').append(layersControlBuild());
 
-map.addControl(new MousePosition({
+map.addControl(new ol.control.MousePosition({
 	coordinateFormat: function (coordinate) {
-		return format(coordinate, '[{y}, {x}]', 5);
+		return ol.coordinate.format(coordinate, '[{y}, {x}]', 5);
 	},
 	projection: 'EPSG:4326'
 }));
-map.addControl(new ScaleLine({units: config.initialConfig.units}));
-map.addControl(new ZoomSlider());
+map.addControl(new ol.control.ScaleLine({units: config.initialConfig.units}));
+map.addControl(new ol.control.ZoomSlider());
 
 // Geolocation Control
 // In some browsers, this feature is available only in secure contexts (HTTPS)
@@ -241,7 +231,7 @@ var geolocationControlBuild = function () {
 
 				view.animate({
 					zoom: config.initialConfig.zoomGeolocation,
-					center: fromLonLat([longitude, latitude])
+					center: ol.proj.fromLonLat([longitude, latitude])
 				});
 			}, function (error) {
 				console.error(error.message, error);
@@ -253,8 +243,19 @@ var geolocationControlBuild = function () {
 	}));
 	return container[0];
 };
-map.addControl(new Control({
+map.addControl(new ol.control.Control({
 	element: geolocationControlBuild()
+}));
+
+// Info Control
+var infoControlBuild = function () {
+	var container = $('<div>').addClass('ol-control ol-unselectable osmcat-infobutton').html($('<button type="button"><i class="fa fa-info-circle"></i></button>').on('click', function () {
+		window.location.href='https://github.com/Ripollx/osmcatmap2';
+	}));
+	return container[0];
+};
+map.addControl(new ol.control.Control({
+	element: infoControlBuild()
 }));
 
 $('#map').css('cursor', 'grab');
@@ -280,10 +281,10 @@ map.on('pointermove', function (evt) {
 
 map.on('singleclick', function (evt) {
 	var coordinate = evt.coordinate,
-			coordinateLL = toLonLat(coordinate),
-			coordinateText = format(coordinateLL, '[{y}, {x}]', 5);
+			coordinateLL = ol.proj.toLonLat(coordinate),
+			coordinateText = ol.coordinate.format(coordinateLL, '[{y}, {x}]', 5);
 	console.log('pinMap', coordinateText);
-	var pinMap = new Overlay({
+	var pinMap = new ol.Overlay({
 		element: $('<div>').addClass('osmcat-map-pin').attr('title', coordinateText).html('<i class="fa fa-map-pin"></i>')[0],
 		position: coordinate
 		//positioning: 'bottom-center' //BUG center no funciona correctament en la v6.1.1 -> FIX setPositioning
@@ -314,4 +315,5 @@ map.on('singleclick', function (evt) {
 		}
 	});
 
+});
 });
