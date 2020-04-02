@@ -105,6 +105,13 @@ a:hover {
 	text-align: center;
 }
 
+.osmcat-loading {
+	bottom: 50%;
+	display: none;
+	right: 50%;
+	z-index: 9999;
+}
+
 .popup {
   position: relative;
   display: inline-block;

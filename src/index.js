@@ -4,6 +4,26 @@ import {Group, Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 $(function() {
 $('#map').empty(); // Remove Javascript required message
 
+var loading = {
+	init: function(){
+		this.count = 0;
+		this.spinner = $('<div>').addClass('ol-control osmcat-loading').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>')
+		$('#map').append(this.spinner);
+	},
+	show: function(){
+		this.spinner.show();
+		++this.count;
+	},
+	hide: function(){
+		--this.count;
+		if (this.count < 1) {
+			this.spinner.hide();
+			this.count = 0;
+		}
+	}
+};
+loading.init();
+
 var overlaysTemp = {};
 $.each(config.overlays, function (index, overlay) {
 	var layerGroup = overlay['group'],
@@ -17,6 +37,7 @@ $.each(config.overlays, function (index, overlay) {
 	var vectorSource = new ol.source.Vector({
 		format: new ol.format.OSMXML2(),
 		loader: function (extent, resolution, projection) {
+			loading.show();
 			var me = this;
 			var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
 			var query = '[maxsize:1048576];' + layerQuery; // Memory limit 1 MiB
@@ -25,6 +46,9 @@ $.each(config.overlays, function (index, overlay) {
 
 			var client = new XMLHttpRequest();
 			client.open('POST', config.overpassApi());
+			client.onloadend = function () {
+				loading.hide();
+			};
 			client.onerror = function () {
 				console.error('[' + client.status + '] Error loading data.');
 				me.removeLoadedExtent(extent);
