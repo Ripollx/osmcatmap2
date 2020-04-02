@@ -8,6 +8,7 @@ var config = {
 	initialConfig: {
 		lon: 1.59647,
 		lat: 41.69689,
+		rotation: 0, //in radians (positive rotation clockwise, 0 means North)
 		zoom: 8,
 		zoomGeolocation: 17,
 		units: 'metric'

@@ -1,23 +1,22 @@
-/**
-import {Group, Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-*/
-$(function() {
-$('#map').empty(); // Remove Javascript required message
+/* global config, ol */
+$(function () {
+	$('#map').empty(); // Remove Javascript required message
 
-var loading = {
-	init: function(){
-		this.count = 0;
-		this.spinner = $('<div>').addClass('ol-control osmcat-loading').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
-		$('#map').append(this.spinner);
-	},
-	show: function(){
-		this.spinner.show();
-		++this.count;
-	},
-	hide: function(){
-		--this.count;
-		if (this.count < 1) {
-			this.spinner.hide();
+	//Object to manage the spinner layer
+	var loading = {
+		init: function () {
+			this.count = 0;
+			this.spinner = $('<div>').addClass('ol-control osmcat-loading').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
+			$('#map').append(this.spinner);
+		},
+		show: function () {
+			this.spinner.show();
+			++this.count;
+		},
+		hide: function () {
+			--this.count;
+			if (this.count < 1) {
+				this.spinner.hide();
 			this.count = 0;
 		}
 	}
@@ -122,10 +121,11 @@ $.each(overlaysTemp, function (index, value) {
 	config.layers.push(layerGroup);
 });
 
-var view = new ol.View({
-	center: ol.proj.fromLonLat([config.initialConfig.lon, config.initialConfig.lat]), // Transform coordinate from EPSG:3857 to EPSG:4326
-	zoom: config.initialConfig.zoom
-});
+	var view = new ol.View({
+		center: ol.proj.fromLonLat([config.initialConfig.lon, config.initialConfig.lat]), // Transform coordinate from EPSG:3857 to EPSG:4326
+		rotation: config.initialConfig.rotation,
+		zoom: config.initialConfig.zoom
+	});
 
 const map = new ol.Map({
 	layers: config.layers,
@@ -271,20 +271,52 @@ map.addControl(new ol.control.Control({
 	element: geolocationControlBuild()
 }));
 
-// Info Control
-var infoControlBuild = function () {
-	var container = $('<div>').addClass('ol-control ol-unselectable osmcat-infobutton').html($('<button type="button"><i class="fa fa-info-circle"></i></button>').on('click', function () {
-		window.location.href='https://github.com/Ripollx/osmcatmap2';
+	// Info Control
+	var infoControlBuild = function () {
+		var container = $('<div>').addClass('ol-control ol-unselectable osmcat-infobutton').html($('<button type="button"><i class="fa fa-info-circle"></i></button>').on('click', function () {
+			window.location.href = 'https://github.com/Ripollx/osmcatmap2';
+		}));
+		return container[0];
+	};
+	map.addControl(new ol.control.Control({
+		element: infoControlBuild()
 	}));
-	return container[0];
-};
-map.addControl(new ol.control.Control({
-	element: infoControlBuild()
-}));
 
-$('#map').css('cursor', 'grab');
-map.on('movestart', function (evt) {
-	$('#map').css('cursor', 'grabbing');
+	// Rotate left button
+	var rotateleftControlBuild = function () {
+		var container = $('<div>').addClass('ol-control ol-unselectable osmcat-rotateleft').html($('<button type="button"><i class="fa fa-undo"></i></button>').on('click', function () {
+			var currentRotation = view.getRotation();
+			if (currentRotation > -6.1) { //360º = 2 Pi r =aprox 6.2
+				view.setRotation(currentRotation - 0.1);
+			} else {
+				view.setRotation(0);
+			}
+		}));
+		return container[0];
+	};
+	map.addControl(new ol.control.Control({
+		element: rotateleftControlBuild()
+	}));
+
+	// Rotate right button
+	var rotaterightControlBuild = function () {
+		var container = $('<div>').addClass('ol-control ol-unselectable osmcat-rotateright').html($('<button type="button"><i class="fa fa-repeat"></i></button>').on('click', function () {
+			var currentRotation = view.getRotation();
+			if (currentRotation < 6.1) { //360º = 2 Pi r =aprox 6.2
+				view.setRotation(currentRotation + 0.1);
+			} else {
+				view.setRotation(0);
+			}
+		}));
+		return container[0];
+	};
+	map.addControl(new ol.control.Control({
+		element: rotaterightControlBuild()
+	}));
+
+	$('#map').css('cursor', 'grab');
+	map.on('movestart', function (evt) {
+		$('#map').css('cursor', 'grabbing');
 });
 map.on('moveend', function (evt) {
 	$('#map').css('cursor', 'grab');

@@ -112,6 +112,24 @@ a:hover {
 	z-index: 9999;
 }
 
+.ol-mouse-position {
+	top: 36px;
+}
+
+.ol-rotate {
+	right:5.5em;
+}
+
+.osmcat-rotateleft {
+	top: .5em;
+	right: .5em;
+}
+
+.osmcat-rotateright {
+	top: .5em;
+	right: 3em;
+}
+
 .popup {
   position: relative;
   display: inline-block;
