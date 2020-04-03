@@ -18,6 +18,7 @@ var config = {
 		editWith: 'Editar amb:',
 		openWith: 'Obre amb:',
 		checkTools: 'Validació:',
+		copyDialog: 'S\'ha copiat l\'enllaç al porta-retalls.',
 		nodeLabel: 'Node:',
 		noNodesFound: 'No s\'ha trobat cap resultat en aquesta àrea.',
 		wayLabel: 'Way:'
