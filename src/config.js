@@ -190,6 +190,93 @@ var config = {
 		},
 		{
 			group: 'Iniciatives',
+			title: 'Vies amb nom i tag:noname',
+			query: '(way[name][noname]({{bbox}});node(w););out meta;',
+			iconSrc: imgSrc + 'base/line.png',
+			iconStyle: 'background-color:#FF6C00',
+			style: function () {
+				var fill = new ol.style.Fill({
+					color: 'rgba(255,128,0,0.4)'
+				});
+				var stroke = new ol.style.Stroke({
+					color: '#FF6C00',
+					width: 1.25
+				});
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
+						fill: fill,
+						stroke: stroke,
+						radius: 5
+					}),
+					fill: fill,
+					stroke: stroke
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Iniciatives',
+			title: 'Vies sense "lanes"',
+			query: '(way[highway=motorway][!lanes]({{bbox}});node(w);way[highway=trunk][!lanes]({{bbox}});node(w);way[highway=primary][!lanes]({{bbox}});node(w);way[highway=secondary][!lanes]({{bbox}});node(w);way[highway=tertiary][!lanes]({{bbox}});node(w);way[highway=unclassified][!lanes]({{bbox}});node(w);way[highway=track][!lanes]({{bbox}});node(w);way[highway=residential][!lanes]({{bbox}});node(w);way[highway=service][!lanes]({{bbox}});node(w););out meta;',
+			iconSrc: imgSrc + 'base/line.png',
+			iconStyle: 'background-color:#006CFF',
+			style: function () {
+				var fill = new ol.style.Fill({
+					color: 'rgba(0,128,255,0.4)'
+				});
+				var stroke = new ol.style.Stroke({
+					color: '#006CFF',
+					width: 1.25
+				});
+				var style = new ol.style.Style({
+					image: new ol.style.Circle({
+						fill: fill,
+						stroke: stroke,
+						radius: 1
+					}),
+					fill: fill,
+					stroke: stroke
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Iniciatives',
+			title: 'Vies amb "maxspeed"',
+			query: '(way[highway=motorway][maxspeed]({{bbox}});node(w);way[highway=trunk][maxspeed]({{bbox}});node(w);way[highway=primary][maxspeed]({{bbox}});node(w);way[highway=secondary][maxspeed]({{bbox}});node(w);way[highway=tertiary][maxspeed]({{bbox}});node(w);way[highway=unclassified][maxspeed]({{bbox}});node(w);way[highway=track][maxspeed]({{bbox}});node(w);way[highway=residential][maxspeed]({{bbox}});node(w);way[highway=service][maxspeed]({{bbox}});node(w););out meta;',
+			iconSrc: imgSrc + 'icones/maxspeed.svg',
+			style: function (feature) {
+				var maxspeed = feature.get('maxspeed') || '';
+				if (maxspeed === ''){
+					return undefined;
+				}
+				var fill = new ol.style.Fill({
+					color: 'rgba(0,128,255,0.4)'
+				});
+				var stroke = new ol.style.Stroke({
+					color: '#006CFF',
+					width: 1.25
+				});
+				var style = new ol.style.Style({
+					text: new ol.style.Text({
+						backgroundFill: new ol.style.Fill({
+							color: 'rgba(255,255,255,0.8)'
+						}),
+						backgroundStroke: new ol.style.Stroke({
+							color: 'rgba(255,0,0,0.8)',
+							width: 2
+						}),
+						text: maxspeed,
+						padding: [5,5,5,5]
+					}),
+					fill: fill,
+					stroke: stroke
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Iniciatives',
 			title: 'Passos de vianants (#1crossing1tag)',
 			query: 'node[highway=crossing][crossing_ref]({{bbox}});out meta;',
 			iconSrc: imgSrc + 'icones/crossing.png',

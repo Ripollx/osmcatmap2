@@ -40,7 +40,7 @@ $(function () {
 				loading.show();
 				var me = this;
 				var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
-				var query = '[maxsize:1048576];' + layerQuery; // Memory limit 1 MiB
+				var query = '[maxsize:536870912];' + layerQuery; // Memory limit 512 MiB
 				//var query = layerQuery;
 				query = query.replace(/{{bbox}}/g, epsg4326Extent[1] + ',' + epsg4326Extent[0] + ',' + epsg4326Extent[3] + ',' + epsg4326Extent[2]);
 
