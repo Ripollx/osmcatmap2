@@ -27,11 +27,7 @@ $(function () {
 	var overlaysTemp = {};
 	$.each(config.overlays, function (index, overlay) {
 		var layerGroup = overlay['group'],
-				layerName = overlay['title'],
-				layerQuery = overlay['query'],
-				layerImage = overlay['iconSrc'],
-				layerIconStyle = overlay['iconStyle'],
-				styleFunction = overlay['style'],
+				vectorProperties = overlay,
 				vector;
 
 		var vectorSource = new ol.source.Vector({
@@ -40,7 +36,7 @@ $(function () {
 				loading.show();
 				var me = this;
 				var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
-				var query = '[maxsize:536870912];' + layerQuery; // Memory limit 512 MiB
+				var query = '[maxsize:536870912];' + overlay['query']; // Memory limit 512 MiB
 				//var query = layerQuery;
 				query = query.replace(/{{bbox}}/g, epsg4326Extent[1] + ',' + epsg4326Extent[0] + ',' + epsg4326Extent[3] + ',' + epsg4326Extent[2]);
 
@@ -96,15 +92,10 @@ $(function () {
 			strategy: ol.loadingstrategy.bbox
 		});
 
-		vector = new ol.layer.Vector({
-			title: layerName,
-			iconSrc: layerImage,
-			iconStyle: layerIconStyle,
-			source: vectorSource,
-			style: styleFunction,
-			//minZoom: 15,
-			visible: false
-		});
+		vectorProperties['source'] = vectorSource;
+		vectorProperties['visible'] = false;
+
+		vector = new ol.layer.Vector(vectorProperties);
 
 		if (overlaysTemp[layerGroup] !== undefined) {
 			overlaysTemp[layerGroup].push(vector);
@@ -549,3 +540,12 @@ $(function () {
 
 	});
 });
+
+function linearColorInterpolation(colorFrom, colorTo, weight) {
+	var p = weight < 0 ? 0 : (weight > 1 ? 1 : weight),
+		w = p * 2 - 1,
+		w1 = (w/1+1) / 2,
+		w2 = 1 - w1,
+		rgb = [Math.round(colorTo[0] * w1 + colorFrom[0] * w2), Math.round(colorTo[1] * w1 + colorFrom[1] * w2), Math.round(colorTo[2] * w1 + colorFrom[2] * w2)];
+	return rgb;
+}
