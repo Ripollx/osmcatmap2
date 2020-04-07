@@ -97,10 +97,6 @@ a:hover {
 .osmcat-content > div {
 	margin-top: 3px;
 }
-.osmcat-content > div:hover {
-	cursor: pointer;
-	background-color: rgba(36,0,136,.3);
-}
 .osmcat-content > div.active {
 	background-color: rgba(0,60,136,.3);
 }
@@ -193,5 +189,9 @@ a:hover {
 	.osmcat-layer {
 		height: auto;
 		width: 100%;
+	}
+	.osmcat-content > div:hover {
+		cursor: pointer;
+		background-color: rgba(36,0,136,.3);
 	}
 }
