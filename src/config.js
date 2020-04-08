@@ -133,6 +133,124 @@ var config = {
 	* style: function see https://openlayers.org/en/latest/apidoc/module-ol_style_Style-Style.html
 	*/
 	overlays: [
+		// Overlay: Coronavirus
+		{
+			group: 'Coronavirus',
+			title: 'Establiments oberts',
+			query: 'node["opening_hours:covid19"]({{bbox}});out meta;',
+			iconSrc: imgSrc + 'coronavirus.svg',
+			style: function (feature) {
+				var src = '';
+				if (feature.get('amenity')) {
+					src = imgSrc + 'icones/symbols/amenity/' + feature.get('amenity') + '.svg';
+				} else if (feature.get('shop')){
+					src = imgSrc + 'icones/symbols/shop/' + feature.get('shop') + '.svg';
+				}
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: src
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Coronavirus',
+			title: 'Supermercat',
+			query: 'node[shop=supermarket]({{bbox}});out meta;',
+			iconSrc: imgSrc + 'icones/symbols/shop/supermarket.svg',
+			style: function (feature) {
+				var src = '';
+				if (feature.get('amenity')) {
+					src = imgSrc + 'icones/symbols/amenity/' + feature.get('amenity') + '.svg';
+				} else if (feature.get('shop')){
+					src = imgSrc + 'icones/symbols/shop/' + feature.get('shop') + '.svg';
+				}
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: src
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Coronavirus',
+			title: 'Farmacies',
+			query: 'node[amenity=pharmacy]({{bbox}});out meta;',
+			iconSrc: imgSrc + 'icones/symbols/amenity/pharmacy.svg',
+			style: function (feature) {
+				var src = '';
+				if (feature.get('amenity')) {
+					src = imgSrc + 'icones/symbols/amenity/' + feature.get('amenity') + '.svg';
+				} else if (feature.get('shop')){
+					src = imgSrc + 'icones/symbols/shop/' + feature.get('shop') + '.svg';
+				}
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: src
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Coronavirus',
+			title: 'Hospital i CAPs',
+			query: 'node[amenity=hospital]({{bbox}});out;node[amenity=clinic]({{bbox}});out meta;',
+			iconSrc: imgSrc + 'icones/symbols/amenity/hospital.svg',
+			style: function (feature) {
+				var src = imgSrc + 'icones/symbols/amenity/hospital.svg';
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: src
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Coronavirus',
+			title: 'Gasolineres',
+			query: 'node[amenity=fuel]({{bbox}});out meta;',
+			iconSrc: imgSrc + 'icones/symbols/amenity/fuel.svg',
+			style: function (feature) {
+				var src = '';
+				if (feature.get('amenity')) {
+					src = imgSrc + 'icones/symbols/amenity/' + feature.get('amenity') + '.svg';
+				} else if (feature.get('shop')){
+					src = imgSrc + 'icones/symbols/shop/' + feature.get('shop') + '.svg';
+				}
+				console.log('src', src);
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: src
+					})
+				});
+				return style;
+			}
+		},
+		{
+			group: 'Coronavirus',
+			title: 'Policia',
+			query: 'node[amenity=police]({{bbox}});out meta;',
+			iconSrc: imgSrc + 'icones/symbols/amenity/police.svg',
+			style: function (feature) {
+				var src = '';
+				if (feature.get('amenity')) {
+					src = imgSrc + 'icones/symbols/amenity/' + feature.get('amenity') + '.svg';
+				} else if (feature.get('shop')){
+					src = imgSrc + 'icones/symbols/shop/' + feature.get('shop') + '.svg';
+				}
+				console.log('src', src);
+				var style = new ol.style.Style({
+					image: new ol.style.Icon({
+						src: src
+					})
+				});
+				return style;
+			}
+		},
 		// Overlay: Iniciatives
 		{
 			group: 'Iniciatives',
