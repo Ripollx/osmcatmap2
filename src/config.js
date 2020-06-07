@@ -78,6 +78,15 @@ var config = {
 			visible: false
 		}),
 		new ol.layer.Tile({
+			title: 'Topotresc',
+			iconSrc: imgSrc + 'topo_layer.png',
+			source: new ol.source.XYZ({
+				attributions: 'Map data <a href="https://www.topotresc.com/" target="_blank">TopoTresk</a> by <a href="https://github.com/aresta/topotresc" target="_blank">aresta</a>',
+				url: 'https://api.topotresc.com/tiles/{z}/{x}/{y}'
+			}),
+			visible: false
+		}),
+		new ol.layer.Tile({
 			title: 'ArcGIS World Topo',
 			iconSrc: imgSrc + 'worldtopomap_logo_layer.png',
 			source: new ol.source.XYZ({
